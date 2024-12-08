@@ -1,5 +1,5 @@
 
-# Mood-Based Session Recommendation System
+# Mood-Based Yoga Recommendation System
 
 A personalized yoga session recommendation system powered by sentiment analysis to tailor yoga poses based on the user's emotional state.
 
