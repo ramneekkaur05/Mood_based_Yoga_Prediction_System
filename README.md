@@ -42,6 +42,14 @@ This project aims to enhance mental well-being by recommending yoga routines ali
 
 
 ## Screenshots
+![Screenshot 2024-12-08 193231](https://github.com/user-attachments/assets/ae6a0602-c213-4a64-af85-b212636c3c8f)
 
-![App Screenshot]("C:\Users\ramne\OneDrive\Pictures\Screenshots\Screenshot 2024-12-08 193231.png")
+![Screenshot 2024-12-08 194919](https://github.com/user-attachments/assets/8f8b6d68-b631-4215-b08e-897eefec3d73)
+
+![Screenshot 2024-12-08 194935](https://github.com/user-attachments/assets/c0ecd56c-fbe1-4b6c-893a-b869b8eff85d)
+
+
+
+
+
 
