@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: bisque;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            margin: 10px 0;
+            font-size: 19px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .pose {
+            margin-top: 10px;
+        }
+        .pose img {
+            width: 200px;
+            height: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yoga Recommendation System</h1>
+    <p><b>Enter your day's experience:</b></p>
+    <textarea id="review"></textarea><br>
+    <button onclick="getRecommendation()">Submit</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        async function getRecommendation() {
+            const review = document.getElementById('review').value;
+            if (!review) {
+                alert("Please enter a review");
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ review: review }),
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data from the backend");
+                }
+
+                const data = await response.json();
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h3>Predicted Mood:</h3>
+                    <p><strong>${data.mood}</strong></p>
+                    <h3>Yoga Recommendations:</h3>
+                `;
+
+                if (data.yoga_poses.length > 0) {
+                    data.yoga_poses.forEach(pose => {
+                        const poseDiv = document.createElement('div');
+                        poseDiv.className = 'pose';
+                        poseDiv.innerHTML = `
+                            <p><b>${pose.pose}</b></p>
+                            <img src="${pose.image}" alt="${pose.pose}">
+                        `;
+                        resultDiv.appendChild(poseDiv);
+                    });
+                } else {
+                    resultDiv.innerHTML += '<p>No recommendations available.</p>';
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = "<p style='color: red;'>Error: Could not connect to the backend. Please try again later.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
